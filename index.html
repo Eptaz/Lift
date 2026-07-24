@@ -12,103 +12,58 @@
 <title>Lift · Suivi muscu</title>
 <style>
   :root{
-    --bg:#0e0f13;
-    --bg-elev:#16181f;
-    --bg-card:#191c24;
-    --bg-input:#1e222c;
-    --line:#282c38;
-    --txt:#f2f3f7;
-    --txt-dim:#9aa0ae;
-    --txt-faint:#61667a;
-    --accent:#6c8cff;
-    --accent-soft:rgba(108,140,255,.16);
-    --good:#3ddc84;
-    --danger:#ff5c7a;
-    --radius:18px;
-    --radius-sm:12px;
-    --ease:cubic-bezier(.22,.61,.36,1);
-    --safe-t:env(safe-area-inset-top,0px);
-    --safe-b:env(safe-area-inset-bottom,0px);
+    --bg:#0e0f13;--bg-elev:#16181f;--bg-card:#191c24;--bg-input:#1e222c;
+    --line:#282c38;--txt:#f2f3f7;--txt-dim:#9aa0ae;--txt-faint:#61667a;
+    --accent:#6c8cff;--accent-soft:rgba(108,140,255,.16);
+    --good:#3ddc84;--danger:#ff5c7a;--star:#ffcf4a;
+    --radius:18px;--radius-sm:12px;--ease:cubic-bezier(.22,.61,.36,1);
+    --safe-t:env(safe-area-inset-top,0px);--safe-b:env(safe-area-inset-bottom,0px);
+    --navh:60px;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;padding:0;height:100%}
-  body{
-    background:var(--bg);
-    color:var(--txt);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    font-size:16px;line-height:1.45;
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
-  }
+  body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.45;overflow-x:hidden;-webkit-font-smoothing:antialiased}
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
   input,textarea,select{font-family:inherit;font-size:16px}
   ::-webkit-scrollbar{width:0;height:0}
 
-  /* ---------- App shell ---------- */
-  #app{max-width:640px;margin:0 auto;min-height:100%;position:relative}
+  #app{max-width:640px;margin:0 auto;min-height:100%;position:relative;padding-bottom:calc(var(--navh) + var(--safe-b))}
 
-  header.top{
-    position:sticky;top:0;z-index:20;
-    padding:calc(var(--safe-t) + 14px) 18px 12px;
-    background:linear-gradient(to bottom,var(--bg) 60%,rgba(14,15,19,.86));
-    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  }
+  header.top{position:sticky;top:0;z-index:20;padding:calc(var(--safe-t) + 14px) 18px 12px;background:linear-gradient(to bottom,var(--bg) 60%,rgba(14,15,19,.86));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
   .top-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
   .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px;letter-spacing:-.02em}
   .brand .dot{width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent)}
   .count{font-size:12.5px;color:var(--txt-faint);font-variant-numeric:tabular-nums}
 
   .search{position:relative;margin-top:12px}
-  .search input{
-    width:100%;padding:13px 16px 13px 44px;border-radius:14px;
-    background:var(--bg-input);border:1px solid var(--line);color:var(--txt);
-    outline:none;transition:border-color .2s,box-shadow .2s;
-  }
+  .search input{width:100%;padding:13px 16px 13px 44px;border-radius:14px;background:var(--bg-input);border:1px solid var(--line);color:var(--txt);outline:none;transition:border-color .2s,box-shadow .2s}
   .search input:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
   .search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);opacity:.5}
 
   .chips{display:flex;gap:8px;overflow-x:auto;margin-top:11px;padding-bottom:2px;scrollbar-width:none}
-  .chip{
-    flex:0 0 auto;padding:7px 14px;border-radius:999px;font-size:13px;font-weight:500;
-    background:var(--bg-input);border:1px solid var(--line);color:var(--txt-dim);
-    transition:all .2s var(--ease);white-space:nowrap;
-  }
+  .chip{flex:0 0 auto;padding:7px 14px;border-radius:999px;font-size:13px;font-weight:500;background:var(--bg-input);border:1px solid var(--line);color:var(--txt-dim);transition:all .2s var(--ease);white-space:nowrap}
   .chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
   .chip:active{transform:scale(.94)}
 
-  /* ---------- Grid ---------- */
-  main{padding:14px 14px calc(var(--safe-b) + 40px)}
+  main{padding:14px 14px 30px}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .card{
-    position:relative;border-radius:var(--radius);overflow:hidden;
-    background:var(--bg-card);border:1px solid var(--line);
-    transition:transform .28s var(--ease),opacity .4s ease;
-    animation:pop .4s var(--ease) both;
-  }
+  .card{position:relative;border-radius:var(--radius);overflow:hidden;background:var(--bg-card);border:1px solid var(--line);transition:transform .28s var(--ease),opacity .4s ease;animation:pop .4s var(--ease) both}
   .card:active{transform:scale(.96)}
   @keyframes pop{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
-  .card .thumb{
-    width:100%;aspect-ratio:1/1;object-fit:cover;display:block;
-    background:var(--bg-elev);
-  }
+  .card .thumb{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:var(--bg-elev)}
   .card .body{padding:9px 11px 11px}
-  .card .name{font-size:13.5px;font-weight:600;line-height:1.25;letter-spacing:-.01em;
-    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:34px}
-  .card .meta{margin-top:5px;font-size:11px;color:var(--txt-faint);text-transform:capitalize;
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .card .logged{
-    position:absolute;top:8px;right:8px;background:var(--good);color:#04140a;
-    font-size:10px;font-weight:800;padding:3px 7px;border-radius:999px;
-    display:flex;align-items:center;gap:3px;box-shadow:0 2px 8px rgba(0,0,0,.4)
-  }
+  .card .name{font-size:13.5px;font-weight:600;line-height:1.25;letter-spacing:-.01em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:34px}
+  .card .meta{margin-top:5px;font-size:11px;color:var(--txt-faint);text-transform:capitalize;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .card .logged{position:absolute;top:8px;left:8px;background:var(--good);color:#04140a;font-size:10px;font-weight:800;padding:3px 7px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+  .card .fav{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;transition:transform .18s}
+  .card .fav.on{color:var(--star)}
+  .card .fav:active{transform:scale(.8)}
 
   .empty{text-align:center;padding:60px 20px;color:var(--txt-faint)}
   .empty b{display:block;color:var(--txt-dim);font-size:17px;margin-bottom:6px}
-
   .sentinel{height:1px}
   .loadmore{text-align:center;color:var(--txt-faint);font-size:13px;padding:20px}
 
-  /* ---------- Skeleton ---------- */
   .skel{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
   .skel .thumb,.skel .l{background:linear-gradient(90deg,#191c24,#20242f,#191c24);background-size:200% 100%;animation:sh 1.3s infinite}
   .skel .thumb{aspect-ratio:1/1}
@@ -116,16 +71,30 @@
   .skel .l.sm{width:55%}
   @keyframes sh{from{background-position:200% 0}to{background-position:-200% 0}}
 
+  /* ---------- Bottom nav ---------- */
+  nav.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;max-width:640px;margin:0 auto;height:calc(var(--navh) + var(--safe-b));padding-bottom:var(--safe-b);display:flex;background:rgba(20,22,27,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line)}
+  nav.tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--txt-faint);font-size:10.5px;font-weight:600;transition:color .2s}
+  nav.tabbar button.on{color:var(--accent)}
+  nav.tabbar button svg{width:23px;height:23px}
+  nav.tabbar button:active{transform:scale(.9)}
+
+  /* ---------- Playlists tab ---------- */
+  .pl-list{padding:6px 4px}
+  .pl-row{display:flex;align-items:center;gap:13px;padding:15px 15px;background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:11px;transition:transform .2s var(--ease);animation:pop .35s var(--ease) both}
+  .pl-row:active{transform:scale(.98)}
+  .pl-ic{width:44px;height:44px;border-radius:13px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;flex:0 0 auto;font-size:20px}
+  .pl-info{flex:1;min-width:0}
+  .pl-info .n{font-size:15.5px;font-weight:650;letter-spacing:-.01em}
+  .pl-info .c{font-size:12px;color:var(--txt-faint);margin-top:2px}
+  .pl-row .del{color:var(--txt-faint);font-size:19px;padding:6px;flex:0 0 auto}
+  .pl-row .del:active{color:var(--danger)}
+  .newpl{width:100%;padding:15px;border-radius:var(--radius);border:1.5px dashed var(--line);color:var(--txt-dim);font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;margin-top:2px}
+  .newpl:active{background:var(--bg-card);border-color:var(--accent);color:var(--accent)}
+
   /* ---------- Detail sheet ---------- */
   .sheet-wrap{position:fixed;inset:0;z-index:60;pointer-events:none}
   .scrim{position:absolute;inset:0;background:rgba(0,0,0,.6);opacity:0;transition:opacity .34s var(--ease)}
-  .sheet{
-    position:absolute;left:0;right:0;bottom:0;max-width:640px;margin:0 auto;
-    max-height:94vh;background:var(--bg-elev);border-radius:24px 24px 0 0;
-    transform:translateY(100%);transition:transform .42s var(--ease);
-    display:flex;flex-direction:column;box-shadow:0 -10px 40px rgba(0,0,0,.5);
-    overflow:hidden;
-  }
+  .sheet{position:absolute;left:0;right:0;bottom:0;max-width:640px;margin:0 auto;max-height:94vh;background:var(--bg-elev);border-radius:24px 24px 0 0;transform:translateY(100%);transition:transform .42s var(--ease);display:flex;flex-direction:column;box-shadow:0 -10px 40px rgba(0,0,0,.5);overflow:hidden}
   .sheet-wrap.open{pointer-events:auto}
   .sheet-wrap.open .scrim{opacity:1}
   .sheet-wrap.open .sheet{transform:translateY(0)}
@@ -134,57 +103,47 @@
 
   .hero{position:relative;width:100%;background:#000}
   .hero img{width:100%;display:block;max-height:46vh;object-fit:contain;background:#0a0b0e}
-  .hero .close{
-    position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;
-    background:rgba(0,0,0,.55);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;
-    color:#fff;font-size:20px;transition:transform .2s
-  }
+  .hero .close{position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;transition:transform .2s}
   .hero .close:active{transform:scale(.9)}
 
   .d-body{padding:18px 20px 0}
-  .d-title{font-size:22px;font-weight:750;letter-spacing:-.02em;line-height:1.2;text-transform:capitalize}
+  .d-titlerow{display:flex;align-items:flex-start;gap:12px}
+  .d-title{font-size:22px;font-weight:750;letter-spacing:-.02em;line-height:1.2;text-transform:capitalize;flex:1}
+  .d-fav{flex:0 0 auto;width:42px;height:42px;border-radius:50%;background:var(--bg-input);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:19px;color:var(--txt-dim);transition:all .2s}
+  .d-fav.on{color:var(--star);border-color:var(--star)}
+  .d-fav:active{transform:scale(.85)}
   .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
   .tag{font-size:12px;padding:5px 11px;border-radius:999px;background:var(--bg-input);border:1px solid var(--line);color:var(--txt-dim);text-transform:capitalize}
   .tag.accent{background:var(--accent-soft);border-color:transparent;color:var(--accent)}
 
+  .plbtn{width:100%;margin-top:16px;padding:13px;border-radius:13px;background:var(--bg-input);border:1px solid var(--line);color:var(--txt);font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .18s}
+  .plbtn:active{transform:scale(.98)}
+  .plbtn .n{color:var(--txt-faint);font-weight:400;font-size:13px}
+
   .sec-h{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--txt-faint);margin:26px 0 12px}
   .steps{list-style:none;margin:0;padding:0;counter-reset:s}
   .steps li{position:relative;padding:0 0 16px 40px;counter-increment:s;font-size:14.5px;color:var(--txt);line-height:1.5}
-  .steps li::before{
-    content:counter(s);position:absolute;left:0;top:-1px;width:26px;height:26px;border-radius:50%;
-    background:var(--accent-soft);color:var(--accent);font-size:12.5px;font-weight:700;
-    display:flex;align-items:center;justify-content:center
-  }
+  .steps li::before{content:counter(s);position:absolute;left:0;top:-1px;width:26px;height:26px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center}
   .steps li::after{content:"";position:absolute;left:12.5px;top:28px;bottom:2px;width:1.5px;background:var(--line)}
   .steps li:last-child{padding-bottom:4px}
   .steps li:last-child::after{display:none}
 
-  /* ---------- Log form ---------- */
   .logbox{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-top:8px}
   .field{margin-bottom:14px}
   .field:last-child{margin-bottom:0}
   .field label{display:block;font-size:12.5px;color:var(--txt-dim);margin-bottom:7px;font-weight:600}
   .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-  .inp{
-    width:100%;padding:12px 12px;border-radius:var(--radius-sm);background:var(--bg-input);
-    border:1px solid var(--line);color:var(--txt);outline:none;text-align:center;
-    transition:border-color .2s,box-shadow .2s;font-variant-numeric:tabular-nums
-  }
+  .inp{width:100%;padding:12px;border-radius:var(--radius-sm);background:var(--bg-input);border:1px solid var(--line);color:var(--txt);outline:none;text-align:center;transition:border-color .2s,box-shadow .2s;font-variant-numeric:tabular-nums}
   .inp:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
   textarea.inp{text-align:left;resize:none;min-height:56px;line-height:1.4}
-  .stepper{display:flex;align-items:stretch;gap:0;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;background:var(--bg-input)}
+  .stepper{display:flex;align-items:stretch;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;background:var(--bg-input)}
   .stepper button{width:44px;font-size:22px;color:var(--txt-dim);flex:0 0 auto;transition:background .15s}
   .stepper button:active{background:var(--accent-soft);color:var(--accent)}
   .stepper input{border:none;background:none;text-align:center;flex:1;min-width:0;color:var(--txt);outline:none;font-variant-numeric:tabular-nums;font-size:17px;font-weight:600}
-  .save-btn{
-    width:100%;margin-top:16px;padding:15px;border-radius:14px;background:var(--accent);color:#fff;
-    font-weight:700;font-size:16px;letter-spacing:-.01em;transition:transform .18s,filter .2s;
-    display:flex;align-items:center;justify-content:center;gap:8px
-  }
+  .save-btn{width:100%;margin-top:16px;padding:15px;border-radius:14px;background:var(--accent);color:#fff;font-weight:700;font-size:16px;letter-spacing:-.01em;transition:transform .18s,filter .2s;display:flex;align-items:center;justify-content:center;gap:8px}
   .save-btn:active{transform:scale(.97);filter:brightness(1.08)}
   .save-btn.done{background:var(--good);color:#04140a}
 
-  /* history */
   .hist{margin-top:8px}
   .hist-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius-sm);margin-bottom:8px;animation:pop .3s var(--ease) both}
   .hist-item .date{font-size:11.5px;color:var(--txt-faint);width:74px;flex:0 0 auto;font-variant-numeric:tabular-nums}
@@ -195,27 +154,41 @@
   .hist-item .del:active{color:var(--danger)}
   .hist-empty{font-size:13px;color:var(--txt-faint);padding:4px 2px}
 
-  /* toast */
-  .toast{
-    position:fixed;left:50%;bottom:calc(var(--safe-b) + 26px);transform:translate(-50%,20px);
-    background:var(--txt);color:var(--bg);padding:11px 20px;border-radius:999px;font-size:14px;font-weight:600;
-    opacity:0;pointer-events:none;transition:all .3s var(--ease);z-index:100;box-shadow:0 8px 30px rgba(0,0,0,.4)
-  }
+  .toast{position:fixed;left:50%;bottom:calc(var(--navh) + var(--safe-b) + 18px);transform:translate(-50%,20px);background:var(--txt);color:var(--bg);padding:11px 20px;border-radius:999px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:all .3s var(--ease);z-index:100;box-shadow:0 8px 30px rgba(0,0,0,.4)}
   .toast.show{opacity:1;transform:translate(-50%,0)}
-
-  /* banner (offline / error) */
   .banner{margin:0 14px 12px;padding:11px 14px;border-radius:12px;font-size:13px;background:var(--accent-soft);color:var(--accent);border:1px solid transparent;display:none}
   .banner.show{display:block;animation:pop .3s var(--ease) both}
+
+  /* ---------- Modal (choix playlist / nom) ---------- */
+  .modal-wrap{position:fixed;inset:0;z-index:80;pointer-events:none}
+  .modal-wrap.open{pointer-events:auto}
+  .modal-scrim{position:absolute;inset:0;background:rgba(0,0,0,.6);opacity:0;transition:opacity .3s var(--ease)}
+  .modal-wrap.open .modal-scrim{opacity:1}
+  .modal{position:absolute;left:50%;top:50%;transform:translate(-50%,-46%);width:min(90%,380px);background:var(--bg-elev);border:1px solid var(--line);border-radius:20px;padding:20px;opacity:0;transition:all .3s var(--ease);max-height:80vh;display:flex;flex-direction:column}
+  .modal-wrap.open .modal{transform:translate(-50%,-50%);opacity:1}
+  .modal h3{margin:0 0 14px;font-size:17px;font-weight:700}
+  .modal-list{overflow-y:auto;margin:-4px -4px 0}
+  .pl-check{display:flex;align-items:center;gap:12px;padding:12px 10px;border-radius:12px;transition:background .15s}
+  .pl-check:active{background:var(--bg-card)}
+  .pl-check .box{width:24px;height:24px;border-radius:7px;border:1.5px solid var(--line);flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;transition:all .15s}
+  .pl-check .box.on{background:var(--accent);border-color:var(--accent)}
+  .pl-check .lbl{flex:1;font-size:15px}
+  .modal-actions{display:flex;gap:10px;margin-top:16px}
+  .modal-actions button{flex:1;padding:13px;border-radius:12px;font-weight:600;font-size:14px;transition:transform .15s}
+  .modal-actions button:active{transform:scale(.97)}
+  .btn-ghost{background:var(--bg-input);border:1px solid var(--line);color:var(--txt-dim)}
+  .btn-solid{background:var(--accent);color:#fff}
+  .modal input.inp{margin-top:4px}
 </style>
 </head>
 <body>
 <div id="app">
   <header class="top">
     <div class="top-row">
-      <div class="brand"><span class="dot"></span>Lift</div>
+      <div class="brand"><span class="dot"></span><span id="title">Lift</span></div>
       <div class="count" id="count"></div>
     </div>
-    <div class="search">
+    <div class="search" id="searchWrap">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input id="q" type="search" placeholder="Rechercher un exercice…" autocomplete="off" enterkeyhint="search">
     </div>
@@ -226,379 +199,324 @@
 
   <main>
     <div class="grid" id="grid"></div>
+    <div class="pl-list" id="plList" style="display:none"></div>
     <div class="sentinel" id="sentinel"></div>
     <div class="loadmore" id="loadmore" style="display:none">Chargement…</div>
   </main>
 </div>
 
+<nav class="tabbar" id="tabbar">
+  <button data-tab="explore" class="on">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    Explorer
+  </button>
+  <button data-tab="fav">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.8l1.1-6.5L2.6 9.8l6.5-.9z"/></svg>
+    Favoris
+  </button>
+  <button data-tab="playlists">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h13M3 12h13M3 18h9M18 12v7M18 12l3 1.5"/></svg>
+    Playlists
+  </button>
+</nav>
+
 <div class="sheet-wrap" id="sheetWrap">
   <div class="scrim" id="scrim"></div>
-  <div class="sheet" id="sheet">
-    <div class="grip"></div>
-    <div class="sheet-scroll" id="sheetScroll"></div>
-  </div>
+  <div class="sheet" id="sheet"><div class="grip"></div><div class="sheet-scroll" id="sheetScroll"></div></div>
+</div>
+
+<div class="modal-wrap" id="modalWrap">
+  <div class="modal-scrim" id="modalScrim"></div>
+  <div class="modal" id="modal"></div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-/* ============================================================
-   Lift — PWA de suivi muscu. Tout en local (IndexedDB).
-   Donnees exercices : chargees depuis GitHub (via jsDelivr CDN).
-   ============================================================ */
-const DATA_URL = "https://cdn.jsdelivr.net/gh/hasaneyldrm/exercises-dataset@main/data/exercises.json";
-const MEDIA_BASE = "https://cdn.jsdelivr.net/gh/hasaneyldrm/exercises-dataset@main/";
-// Repli local pour les tests (fichier servi a cote de index.html s'il existe)
-const LOCAL_FALLBACK = "exercises_sample.json";
+const DATA_URL="https://cdn.jsdelivr.net/gh/hasaneyldrm/exercises-dataset@main/data/exercises.json";
+const MEDIA_BASE="https://cdn.jsdelivr.net/gh/hasaneyldrm/exercises-dataset@main/";
+const LOCAL_FALLBACK="exercises_sample.json";
+const PAGE=24;
+let ALL=[],VIEW=[],shown=0,activeCat="all",query="",tab="explore";
+let logsIndex={},FAVS=new Set(),PLAYLISTS=[];
 
-const PAGE = 24;               // cartes chargees par lot (scroll infini)
-let ALL = [];                  // tous les exercices
-let VIEW = [];                 // exercices apres filtre/recherche
-let shown = 0;                 // combien affichees
-let activeCat = "all";
-let query = "";
-let logsIndex = {};            // {exerciseId: nbSeances} pour le badge
-
-/* -------- IndexedDB : sessions enregistrees -------- */
-const DB_NAME = "lift-db", STORE = "logs";
+/* ---------- IndexedDB ---------- */
+const DB_NAME="lift-db",DB_VER=2;
 let _db;
 function db(){
-  return _db ? Promise.resolve(_db) : new Promise((res,rej)=>{
-    const r = indexedDB.open(DB_NAME,1);
-    r.onupgradeneeded = e=>{
-      const d = e.target.result;
-      if(!d.objectStoreNames.contains(STORE)){
-        const s = d.createObjectStore(STORE,{keyPath:"id",autoIncrement:true});
+  return _db?Promise.resolve(_db):new Promise((res,rej)=>{
+    const r=indexedDB.open(DB_NAME,DB_VER);
+    r.onupgradeneeded=e=>{
+      const d=e.target.result;
+      if(!d.objectStoreNames.contains("logs")){
+        const s=d.createObjectStore("logs",{keyPath:"id",autoIncrement:true});
         s.createIndex("ex","exerciseId",{unique:false});
       }
+      if(!d.objectStoreNames.contains("favs")) d.createObjectStore("favs",{keyPath:"id"});
+      if(!d.objectStoreNames.contains("playlists")) d.createObjectStore("playlists",{keyPath:"id",autoIncrement:true});
     };
-    r.onsuccess = e=>{ _db=e.target.result; res(_db); };
-    r.onerror = e=>rej(e.target.error);
+    r.onsuccess=e=>{_db=e.target.result;res(_db);};
+    r.onerror=e=>rej(e.target.error);
   });
 }
-async function addLog(entry){
-  const d = await db();
-  return new Promise((res,rej)=>{
-    const tx = d.transaction(STORE,"readwrite");
-    tx.objectStore(STORE).add(entry);
-    tx.oncomplete = ()=>res();
-    tx.onerror = e=>rej(e.target.error);
-  });
-}
-async function deleteLog(id){
-  const d = await db();
-  return new Promise((res,rej)=>{
-    const tx = d.transaction(STORE,"readwrite");
-    tx.objectStore(STORE).delete(id);
-    tx.oncomplete = ()=>res();
-    tx.onerror = e=>rej(e.target.error);
-  });
-}
-async function logsFor(exId){
-  const d = await db();
-  return new Promise((res,rej)=>{
-    const tx = d.transaction(STORE,"readonly");
-    const idx = tx.objectStore(STORE).index("ex");
-    const out=[];
-    idx.openCursor(IDBKeyRange.only(exId)).onsuccess = e=>{
-      const c = e.target.result;
-      if(c){ out.push(c.value); c.continue(); }
-      else res(out.sort((a,b)=>b.ts-a.ts));
-    };
-    tx.onerror = e=>rej(e.target.error);
-  });
-}
-async function allLogsCount(){
-  const d = await db();
-  return new Promise((res)=>{
-    const tx = d.transaction(STORE,"readonly");
-    const map={};
-    tx.objectStore(STORE).openCursor().onsuccess = e=>{
-      const c=e.target.result;
-      if(c){ map[c.value.exerciseId]=(map[c.value.exerciseId]||0)+1; c.continue(); }
-      else res(map);
-    };
-  });
-}
+function tx(store,mode){return db().then(d=>d.transaction(store,mode).objectStore(store));}
+function req(r){return new Promise((res,rej)=>{r.onsuccess=e=>res(e.target.result);r.onerror=e=>rej(e.target.error);});}
+function done(t){return new Promise((res,rej)=>{t.oncomplete=()=>res();t.onerror=e=>rej(e.target.error);});}
 
-/* -------- Utils -------- */
-const $ = s=>document.querySelector(s);
-const esc = s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function media(path){ return MEDIA_BASE + path; }
-function toast(msg){
-  const t=$("#toast"); t.textContent=msg; t.classList.add("show");
-  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("show"),1700);
-}
-function fmtDate(ts){
-  const d=new Date(ts);
-  return d.toLocaleDateString("fr-FR",{day:"2-digit",month:"short"}) + " · " +
-         d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});
-}
+async function addLog(entry){const s=await tx("logs","readwrite");s.add(entry);return done(s.transaction);}
+async function deleteLog(id){const s=await tx("logs","readwrite");s.delete(id);return done(s.transaction);}
+async function logsFor(exId){const s=await tx("logs","readonly");const out=[];return new Promise((res)=>{s.index("ex").openCursor(IDBKeyRange.only(exId)).onsuccess=e=>{const c=e.target.result;if(c){out.push(c.value);c.continue();}else res(out.sort((a,b)=>b.ts-a.ts));};});}
+async function allLogsCount(){const s=await tx("logs","readonly");const map={};return new Promise((res)=>{s.openCursor().onsuccess=e=>{const c=e.target.result;if(c){map[c.value.exerciseId]=(map[c.value.exerciseId]||0)+1;c.continue();}else res(map);};});}
 
-/* -------- Chargement des donnees -------- */
+async function loadFavs(){const s=await tx("favs","readonly");const all=await req(s.getAll());FAVS=new Set(all.map(x=>x.id));}
+async function toggleFav(exId){
+  const s=await tx("favs","readwrite");
+  if(FAVS.has(exId)){s.delete(exId);FAVS.delete(exId);}
+  else{s.put({id:exId,ts:Date.now()});FAVS.add(exId);}
+  await done(s.transaction);
+}
+async function loadPlaylists(){const s=await tx("playlists","readonly");PLAYLISTS=await req(s.getAll());PLAYLISTS.sort((a,b)=>a.ts-b.ts);}
+async function createPlaylist(name){const s=await tx("playlists","readwrite");const id=await req(s.add({name,items:[],ts:Date.now()}));await done(s.transaction);await loadPlaylists();return id;}
+async function deletePlaylist(id){const s=await tx("playlists","readwrite");s.delete(id);await done(s.transaction);await loadPlaylists();}
+async function setPlaylistItems(id,items){const s=await tx("playlists","readwrite");const pl=await req(s.get(id));pl.items=items;s.put(pl);await done(s.transaction);await loadPlaylists();}
+
+/* ---------- Utils ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const media=p=>MEDIA_BASE+p;
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),1700);}
+function fmtDate(ts){const d=new Date(ts);return d.toLocaleDateString("fr-FR",{day:"2-digit",month:"short"})+" · "+d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});}
+const byId=id=>ALL.find(e=>e.id===id);
+
+/* ---------- Chargement ---------- */
 async function loadData(){
   showSkeleton();
-  let data=null, fromNet=false;
-  try{
-    const r = await fetch(DATA_URL,{cache:"force-cache"});
-    if(!r.ok) throw new Error("http "+r.status);
-    data = await r.json(); fromNet=true;
-  }catch(err){
-    try{
-      const r2 = await fetch(LOCAL_FALLBACK);
-      if(r2.ok) data = await r2.json();
-    }catch(e2){}
-  }
-  if(!data){
-    banner("⚠️ Impossible de charger les exercices. Verifie ta connexion puis relance.");
-    $("#grid").innerHTML="";
-    return;
-  }
-  ALL = data;
-  logsIndex = await allLogsCount();
-  buildChips();
-  applyFilter();
-  if(!fromNet) banner("📴 Mode hors-ligne — donnees en cache. Les GIFs demandent une connexion la 1re fois.");
-  else clearBanner();
+  let data=null,fromNet=false;
+  try{const r=await fetch(DATA_URL,{cache:"force-cache"});if(!r.ok)throw 0;data=await r.json();fromNet=true;}
+  catch(e){try{const r2=await fetch(LOCAL_FALLBACK);if(r2.ok)data=await r2.json();}catch(e2){}}
+  if(!data){banner("⚠️ Impossible de charger les exercices. Vérifie ta connexion puis relance.");$("#grid").innerHTML="";return;}
+  ALL=data;
+  logsIndex=await allLogsCount();
+  await loadFavs();await loadPlaylists();
+  buildChips();render();
+  if(!fromNet)banner("📴 Mode hors-ligne — données en cache.");else clearBanner();
 }
-function banner(t){ const b=$("#banner"); b.textContent=t; b.classList.add("show"); }
-function clearBanner(){ $("#banner").classList.remove("show"); }
+function banner(t){const b=$("#banner");b.textContent=t;b.classList.add("show");}
+function clearBanner(){$("#banner").classList.remove("show");}
 
-/* -------- Filtres -------- */
+/* ---------- Chips ---------- */
 function buildChips(){
-  const cats = ["all", ...Array.from(new Set(ALL.map(e=>e.category))).sort()];
-  const label = c=> c==="all" ? "Tous" : c;
-  $("#chips").innerHTML = cats.map(c=>
-    `<button class="chip ${c===activeCat?'on':''}" data-cat="${esc(c)}">${esc(label(c))}</button>`
-  ).join("");
-  $("#chips").querySelectorAll(".chip").forEach(ch=>{
-    ch.onclick = ()=>{
-      activeCat = ch.dataset.cat;
-      $("#chips").querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===ch));
-      applyFilter();
-    };
-  });
+  const cats=["all",...Array.from(new Set(ALL.map(e=>e.category))).sort()];
+  $("#chips").innerHTML=cats.map(c=>`<button class="chip ${c===activeCat?'on':''}" data-cat="${esc(c)}">${c==="all"?"Tous":esc(c)}</button>`).join("");
+  $("#chips").querySelectorAll(".chip").forEach(ch=>ch.onclick=()=>{activeCat=ch.dataset.cat;$("#chips").querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===ch));render();});
 }
-function applyFilter(){
-  const q = query.trim().toLowerCase();
-  VIEW = ALL.filter(e=>{
-    if(activeCat!=="all" && e.category!==activeCat) return false;
-    if(!q) return true;
+
+/* ---------- Rendu selon l'onglet ---------- */
+function currentSource(){
+  if(tab==="fav") return ALL.filter(e=>FAVS.has(e.id));
+  if(tab==="explore") return ALL;
+  return [];
+}
+function render(){
+  if(tab==="playlists"){renderPlaylists();return;}
+  $("#grid").style.display="grid";$("#plList").style.display="none";
+  const q=query.trim().toLowerCase();
+  VIEW=currentSource().filter(e=>{
+    if(activeCat!=="all"&&e.category!==activeCat)return false;
+    if(!q)return true;
     return (e.name+" "+e.target+" "+e.equipment+" "+(e.muscle_group||"")).toLowerCase().includes(q);
   });
-  shown = 0;
-  $("#grid").innerHTML="";
-  $("#count").textContent = VIEW.length + " exercice" + (VIEW.length>1?"s":"");
+  shown=0;$("#grid").innerHTML="";
+  $("#count").textContent=VIEW.length+" exercice"+(VIEW.length>1?"s":"");
   if(VIEW.length===0){
-    $("#grid").innerHTML = `<div class="empty" style="grid-column:1/-1"><b>Aucun resultat</b>Essaie un autre mot-cle ou categorie.</div>`;
-    return;
+    const msg=tab==="fav"?"<b>Aucun favori</b>Touche l'étoile sur un exercice pour l'ajouter ici.":"<b>Aucun résultat</b>Essaie un autre mot-clé ou catégorie.";
+    $("#grid").innerHTML=`<div class="empty" style="grid-column:1/-1">${msg}</div>`;return;
   }
   renderMore();
 }
 function renderMore(){
-  const slice = VIEW.slice(shown, shown+PAGE);
-  const frag = document.createDocumentFragment();
+  const slice=VIEW.slice(shown,shown+PAGE),frag=document.createDocumentFragment();
   slice.forEach((e,i)=>{
-    const div = document.createElement("div");
-    div.className="card";
-    div.style.animationDelay = (i%PAGE)*18 + "ms";
-    const n = logsIndex[e.id]||0;
-    div.innerHTML = `
+    const div=document.createElement("div");div.className="card";div.style.animationDelay=(i%PAGE)*16+"ms";
+    const n=logsIndex[e.id]||0,fav=FAVS.has(e.id);
+    div.innerHTML=`
       ${n>0?`<span class="logged">✓ ${n}</span>`:``}
+      <button class="fav ${fav?'on':''}" data-fav="${esc(e.id)}" aria-label="Favori">${fav?'★':'☆'}</button>
       <img class="thumb" loading="lazy" src="${esc(media(e.image))}" alt="" onerror="this.style.opacity=.25">
-      <div class="body">
-        <div class="name">${esc(e.name)}</div>
-        <div class="meta">${esc(e.equipment)} · ${esc(e.target)}</div>
-      </div>`;
-    div.onclick = ()=>openDetail(e);
+      <div class="body"><div class="name">${esc(e.name)}</div><div class="meta">${esc(e.equipment)} · ${esc(e.target)}</div></div>`;
+    div.querySelector(".fav").onclick=async ev=>{ev.stopPropagation();await toggleFav(e.id);const b=ev.currentTarget;const on=FAVS.has(e.id);b.classList.toggle("on",on);b.textContent=on?'★':'☆';if(tab==="fav"&&!on)render();};
+    div.onclick=()=>openDetail(e);
     frag.appendChild(div);
   });
-  $("#grid").appendChild(frag);
-  shown += slice.length;
-  $("#loadmore").style.display = shown<VIEW.length ? "block" : "none";
+  $("#grid").appendChild(frag);shown+=slice.length;
+  $("#loadmore").style.display=shown<VIEW.length?"block":"none";
 }
-function showSkeleton(){
-  $("#grid").innerHTML = Array.from({length:8}).map(()=>
-    `<div class="skel"><div class="thumb"></div><div class="l"></div><div class="l sm"></div></div>`).join("");
+function showSkeleton(){$("#grid").innerHTML=Array.from({length:8}).map(()=>`<div class="skel"><div class="thumb"></div><div class="l"></div><div class="l sm"></div></div>`).join("");}
+
+/* ---------- Playlists ---------- */
+function renderPlaylists(){
+  $("#grid").style.display="none";$("#plList").style.display="block";
+  $("#count").textContent=PLAYLISTS.length+" playlist"+(PLAYLISTS.length>1?"s":"");
+  const el=$("#plList");
+  el.innerHTML=PLAYLISTS.map(p=>`
+    <div class="pl-row" data-open="${p.id}">
+      <div class="pl-ic">▶</div>
+      <div class="pl-info"><div class="n">${esc(p.name)}</div><div class="c">${p.items.length} exercice${p.items.length>1?"s":""}</div></div>
+      <button class="del" data-del="${p.id}" aria-label="Supprimer">🗑</button>
+    </div>`).join("")
+    + `<button class="newpl" id="newPl">＋ Nouvelle playlist</button>`;
+  el.querySelectorAll("[data-open]").forEach(r=>r.onclick=e=>{if(e.target.closest("[data-del]"))return;openPlaylist(Number(r.dataset.open));});
+  el.querySelectorAll("[data-del]").forEach(b=>b.onclick=async()=>{const p=PLAYLISTS.find(x=>x.id==b.dataset.del);if(confirm(`Supprimer la playlist "${p.name}" ?`)){await deletePlaylist(Number(b.dataset.del));renderPlaylists();toast("Playlist supprimée");}});
+  $("#newPl").onclick=promptNewPlaylist;
 }
+function openPlaylist(id){
+  const p=PLAYLISTS.find(x=>x.id===id);if(!p)return;
+  tab="explore-pl";_plView=p;
+  $("#grid").style.display="grid";$("#plList").style.display="none";
+  $("#searchWrap").style.display="none";$("#chips").style.display="none";
+  $("#title").textContent=p.name;
+  VIEW=p.items.map(byId).filter(Boolean);
+  shown=0;$("#grid").innerHTML="";
+  $("#count").textContent=VIEW.length+" exercice"+(VIEW.length>1?"s":"");
+  if(VIEW.length===0)$("#grid").innerHTML=`<div class="empty" style="grid-column:1/-1"><b>Playlist vide</b>Ouvre un exercice et ajoute-le à cette playlist.</div>`;
+  else renderMore();
+  setTab("playlists");
+}
+let _plView=null;
 
-/* scroll infini */
-const io = new IntersectionObserver(es=>{
-  if(es[0].isIntersecting && shown>0 && shown<VIEW.length) renderMore();
-},{rootMargin:"600px"});
-io.observe($("#sentinel"));
-
-/* recherche (debounce) */
-let qt;
-$("#q").addEventListener("input", e=>{
-  clearTimeout(qt); query = e.target.value;
-  qt = setTimeout(applyFilter,180);
-});
-
-/* -------- Fiche detail + saisie -------- */
-let currentEx = null;
-async function openDetail(e){
-  currentEx = e;
-  const steps = (e.instruction_steps && e.instruction_steps.en && e.instruction_steps.en.length)
-      ? e.instruction_steps.en
-      : (e.instructions && e.instructions.en ? [e.instructions.en] : []);
-  const secondary = (e.secondary_muscles||[]).filter(Boolean);
-  $("#sheetScroll").innerHTML = `
-    <div class="hero">
-      <img src="${esc(media(e.gif_url))}" alt="${esc(e.name)}" onerror="this.src='${esc(media(e.image))}'">
-      <button class="close" id="closeBtn" aria-label="Fermer">✕</button>
-    </div>
+/* ---------- Fiche détail ---------- */
+let currentEx=null;
+function openDetail(e){
+  currentEx=e;
+  const steps=(e.instruction_steps&&e.instruction_steps.en&&e.instruction_steps.en.length)?e.instruction_steps.en:(e.instructions&&e.instructions.en?[e.instructions.en]:[]);
+  const secondary=(e.secondary_muscles||[]).filter(Boolean);
+  const fav=FAVS.has(e.id);
+  const nPl=PLAYLISTS.filter(p=>p.items.includes(e.id)).length;
+  $("#sheetScroll").innerHTML=`
+    <div class="hero"><img src="${esc(media(e.gif_url))}" alt="${esc(e.name)}" onerror="this.src='${esc(media(e.image))}'"><button class="close" id="closeBtn">✕</button></div>
     <div class="d-body">
-      <div class="d-title">${esc(e.name)}</div>
+      <div class="d-titlerow">
+        <div class="d-title">${esc(e.name)}</div>
+        <button class="d-fav ${fav?'on':''}" id="dFav">${fav?'★':'☆'}</button>
+      </div>
       <div class="tags">
         <span class="tag accent">${esc(e.category)}</span>
         <span class="tag">🏋️ ${esc(e.equipment)}</span>
         <span class="tag">🎯 ${esc(e.target)}</span>
         ${secondary.slice(0,3).map(m=>`<span class="tag">${esc(m)}</span>`).join("")}
       </div>
-
-      <div class="sec-h">Execution</div>
+      <button class="plbtn" id="plBtn">＋ Ajouter à une playlist <span class="n" id="plCount">${nPl?`(dans ${nPl})`:''}</span></button>
+      <div class="sec-h">Exécution</div>
       <ol class="steps">${steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>
-
-      <div class="sec-h">Enregistrer une serie</div>
+      <div class="sec-h">Enregistrer une série</div>
       <div class="logbox">
         <div class="row3">
-          <div class="field">
-            <label>Poids (kg)</label>
-            <input class="inp" id="fWeight" type="number" inputmode="decimal" step="0.5" min="0" placeholder="0">
-          </div>
-          <div class="field">
-            <label>Series</label>
-            <div class="stepper">
-              <button type="button" data-step="fSets" data-d="-1">−</button>
-              <input id="fSets" type="number" inputmode="numeric" value="3" min="0">
-              <button type="button" data-step="fSets" data-d="1">+</button>
-            </div>
-          </div>
-          <div class="field">
-            <label>Reps</label>
-            <div class="stepper">
-              <button type="button" data-step="fReps" data-d="-1">−</button>
-              <input id="fReps" type="number" inputmode="numeric" value="10" min="0">
-              <button type="button" data-step="fReps" data-d="1">+</button>
-            </div>
-          </div>
+          <div class="field"><label>Poids (kg)</label><input class="inp" id="fWeight" type="number" inputmode="decimal" step="0.5" min="0" placeholder="0"></div>
+          <div class="field"><label>Séries</label><div class="stepper"><button type="button" data-step="fSets" data-d="-1">−</button><input id="fSets" type="number" inputmode="numeric" value="3" min="0"><button type="button" data-step="fSets" data-d="1">+</button></div></div>
+          <div class="field"><label>Reps</label><div class="stepper"><button type="button" data-step="fReps" data-d="-1">−</button><input id="fReps" type="number" inputmode="numeric" value="10" min="0"><button type="button" data-step="fReps" data-d="1">+</button></div></div>
         </div>
-        <div class="field">
-          <label>Note (optionnel)</label>
-          <textarea class="inp" id="fNote" placeholder="Ressenti, forme, reglage machine…"></textarea>
-        </div>
-        <button class="save-btn" id="saveBtn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-          <span id="saveLabel">Enregistrer</span>
-        </button>
+        <div class="field"><label>Note (optionnel)</label><textarea class="inp" id="fNote" placeholder="Ressenti, forme, réglage machine…"></textarea></div>
+        <button class="save-btn" id="saveBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span id="saveLabel">Enregistrer</span></button>
       </div>
-
       <div class="sec-h">Historique</div>
       <div class="hist" id="hist"></div>
     </div>`;
-
-  $("#closeBtn").onclick = ()=>{ if(history.state&&history.state.sheet) history.back(); else closeDetail(); };
-  $("#saveBtn").onclick = saveEntry;
-  $("#sheetScroll").querySelectorAll(".stepper button").forEach(b=>{
-    b.onclick = ()=>{
-      const inp = document.getElementById(b.dataset.step);
-      const v = Math.max(0,(parseInt(inp.value)||0)+parseInt(b.dataset.d));
-      inp.value = v;
-    };
-  });
-  openSheet();
-  renderHistory();
+  $("#closeBtn").onclick=()=>{if(history.state&&history.state.sheet)history.back();else closeDetail();};
+  $("#saveBtn").onclick=saveEntry;
+  $("#dFav").onclick=async ev=>{await toggleFav(e.id);const on=FAVS.has(e.id);ev.currentTarget.classList.toggle("on",on);ev.currentTarget.textContent=on?'★':'☆';};
+  $("#plBtn").onclick=()=>openPlaylistPicker(e);
+  $("#sheetScroll").querySelectorAll(".stepper button").forEach(b=>b.onclick=()=>{const inp=document.getElementById(b.dataset.step);inp.value=Math.max(0,(parseInt(inp.value)||0)+parseInt(b.dataset.d));});
+  openSheet();renderHistory();
 }
-
 async function renderHistory(){
-  const list = await logsFor(currentEx.id);
-  const el = $("#hist");
-  if(!el) return;
-  if(list.length===0){ el.innerHTML = `<div class="hist-empty">Aucune seance enregistree pour l'instant.</div>`; return; }
-  el.innerHTML = list.map(l=>{
-    const main = (l.weight?`${l.weight} kg`:"—") + ` <small>· ${l.sets}×${l.reps}</small>`;
-    return `<div class="hist-item">
-      <div class="date">${fmtDate(l.ts)}</div>
-      <div style="flex:1">
-        <div class="val">${main}</div>
-        ${l.note?`<div class="note">${esc(l.note)}</div>`:``}
-      </div>
-      <button class="del" data-id="${l.id}" aria-label="Supprimer">🗑</button>
-    </div>`;
-  }).join("");
-  el.querySelectorAll(".del").forEach(b=>{
-    b.onclick = async ()=>{
-      await deleteLog(Number(b.dataset.id));
-      logsIndex = await allLogsCount();
-      renderHistory();
-      toast("Supprime");
-    };
-  });
+  const list=await logsFor(currentEx.id),el=$("#hist");if(!el)return;
+  if(list.length===0){el.innerHTML=`<div class="hist-empty">Aucune séance enregistrée pour l'instant.</div>`;return;}
+  el.innerHTML=list.map(l=>`<div class="hist-item"><div class="date">${fmtDate(l.ts)}</div><div style="flex:1"><div class="val">${l.weight?`${l.weight} kg`:"—"} <small>· ${l.sets}×${l.reps}</small></div>${l.note?`<div class="note">${esc(l.note)}</div>`:``}</div><button class="del" data-id="${l.id}">🗑</button></div>`).join("");
+  el.querySelectorAll(".del").forEach(b=>b.onclick=async()=>{await deleteLog(Number(b.dataset.id));logsIndex=await allLogsCount();renderHistory();toast("Supprimé");});
 }
-
 async function saveEntry(){
-  const weight = parseFloat($("#fWeight").value)||0;
-  const sets = parseInt($("#fSets").value)||0;
-  const reps = parseInt($("#fReps").value)||0;
-  const note = $("#fNote").value.trim();
-  if(weight===0 && sets===0 && reps===0 && !note){ toast("Rien a enregistrer"); return; }
-  await addLog({exerciseId:currentEx.id, exerciseName:currentEx.name, weight, sets, reps, note, ts:Date.now()});
-  logsIndex = await allLogsCount();
-  const btn=$("#saveBtn"), lab=$("#saveLabel");
-  btn.classList.add("done"); lab.textContent="Enregistre !";
-  setTimeout(()=>{ btn.classList.remove("done"); lab.textContent="Enregistrer"; },1300);
-  $("#fNote").value="";
-  renderHistory();
-  toast("Seance enregistree ✓");
+  const weight=parseFloat($("#fWeight").value)||0,sets=parseInt($("#fSets").value)||0,reps=parseInt($("#fReps").value)||0,note=$("#fNote").value.trim();
+  if(weight===0&&sets===0&&reps===0&&!note){toast("Rien à enregistrer");return;}
+  await addLog({exerciseId:currentEx.id,exerciseName:currentEx.name,weight,sets,reps,note,ts:Date.now()});
+  logsIndex=await allLogsCount();
+  const btn=$("#saveBtn"),lab=$("#saveLabel");btn.classList.add("done");lab.textContent="Enregistré !";
+  setTimeout(()=>{btn.classList.remove("done");lab.textContent="Enregistrer";},1300);
+  $("#fNote").value="";renderHistory();toast("Séance enregistrée ✓");
 }
 
-/* -------- Sheet open/close + gestes -------- */
-function openSheet(){
-  $("#sheetWrap").classList.add("open");
-  history.pushState({sheet:true},"");
-  document.body.style.overflow="hidden";
-}
-function closeDetail(){
-  $("#sheetWrap").classList.remove("open");
-  document.body.style.overflow="";
-  setTimeout(()=>{ const y=window.scrollY; applyFilter(); window.scrollTo(0,y); },380);
-}
-$("#scrim").onclick = ()=>{ if(history.state&&history.state.sheet) history.back(); else closeDetail(); };
-window.addEventListener("popstate", ()=>{
-  if($("#sheetWrap").classList.contains("open")) closeDetail();
-});
+/* ---------- Modal playlist picker ---------- */
+function openModal(html){$("#modal").innerHTML=html;$("#modalWrap").classList.add("open");}
+function closeModal(){$("#modalWrap").classList.remove("open");}
+$("#modalScrim").onclick=closeModal;
 
-/* glisser vers le bas pour fermer */
-(function(){
-  const sheet=$("#sheet"); const scroll=$("#sheetScroll");
-  let startY=0,cur=0,drag=false;
-  sheet.addEventListener("touchstart",e=>{
-    if(scroll.scrollTop>4) return;
-    startY=e.touches[0].clientY; drag=true; sheet.style.transition="none";
-  },{passive:true});
-  sheet.addEventListener("touchmove",e=>{
-    if(!drag) return;
-    cur=e.touches[0].clientY-startY;
-    if(cur<0){cur=0;return;}
-    sheet.style.transform=`translateY(${cur}px)`;
-  },{passive:true});
-  sheet.addEventListener("touchend",()=>{
-    if(!drag) return; drag=false;
-    sheet.style.transition="";
-    if(cur>110){ if(history.state&&history.state.sheet) history.back(); else closeDetail(); }
-    else sheet.style.transform="";
-    cur=0;
+function openPlaylistPicker(e){
+  if(PLAYLISTS.length===0){
+    openModal(`<h3>Nouvelle playlist</h3><input class="inp" id="mName" placeholder="Ex. Jour Push" style="text-align:left"><div class="modal-actions"><button class="btn-ghost" id="mCancel">Annuler</button><button class="btn-solid" id="mOk">Créer + ajouter</button></div>`);
+    $("#mCancel").onclick=closeModal;
+    $("#mOk").onclick=async()=>{const n=$("#mName").value.trim();if(!n){toast("Nom requis");return;}const id=await createPlaylist(n);await setPlaylistItems(id,[e.id]);closeModal();updatePlCount(e);toast(`Ajouté à "${n}"`);};
+    setTimeout(()=>$("#mName").focus(),150);return;
+  }
+  const rows=PLAYLISTS.map(p=>{const inIt=p.items.includes(e.id);return `<div class="pl-check" data-id="${p.id}"><div class="box ${inIt?'on':''}">${inIt?'✓':''}</div><div class="lbl">${esc(p.name)}</div></div>`;}).join("");
+  openModal(`<h3>Ajouter à…</h3><div class="modal-list">${rows}</div><button class="newpl" id="mNew" style="margin-top:12px">＋ Nouvelle playlist</button><div class="modal-actions"><button class="btn-solid" id="mDone">Terminé</button></div>`);
+  $("#modal").querySelectorAll(".pl-check").forEach(r=>r.onclick=async()=>{
+    const id=Number(r.dataset.id),p=PLAYLISTS.find(x=>x.id===id);
+    const items=p.items.includes(e.id)?p.items.filter(x=>x!==e.id):[...p.items,e.id];
+    await setPlaylistItems(id,items);
+    const box=r.querySelector(".box"),on=items.includes(e.id);box.classList.toggle("on",on);box.textContent=on?'✓':'';
   });
+  $("#mNew").onclick=()=>{closeModal();setTimeout(()=>{PLAYLISTS=[];openPlaylistPicker(e);loadPlaylists();},50);promptNewInline(e);};
+  $("#mDone").onclick=()=>{closeModal();updatePlCount(e);};
+}
+function promptNewInline(e){
+  openModal(`<h3>Nouvelle playlist</h3><input class="inp" id="mName" placeholder="Ex. Jour Pull" style="text-align:left"><div class="modal-actions"><button class="btn-ghost" id="mCancel">Annuler</button><button class="btn-solid" id="mOk">Créer + ajouter</button></div>`);
+  $("#mCancel").onclick=()=>{closeModal();openPlaylistPicker(e);};
+  $("#mOk").onclick=async()=>{const n=$("#mName").value.trim();if(!n){toast("Nom requis");return;}const id=await createPlaylist(n);await setPlaylistItems(id,[e.id]);closeModal();updatePlCount(e);toast(`Ajouté à "${n}"`);};
+  setTimeout(()=>$("#mName").focus(),150);
+}
+function updatePlCount(e){const nPl=PLAYLISTS.filter(p=>p.items.includes(e.id)).length;const el=$("#plCount");if(el)el.textContent=nPl?`(dans ${nPl})`:'';}
+function promptNewPlaylist(){
+  openModal(`<h3>Nouvelle playlist</h3><input class="inp" id="mName" placeholder="Ex. Jour Jambes" style="text-align:left"><div class="modal-actions"><button class="btn-ghost" id="mCancel">Annuler</button><button class="btn-solid" id="mOk">Créer</button></div>`);
+  $("#mCancel").onclick=closeModal;
+  $("#mOk").onclick=async()=>{const n=$("#mName").value.trim();if(!n){toast("Nom requis");return;}await createPlaylist(n);closeModal();renderPlaylists();toast(`Playlist "${n}" créée`);};
+  setTimeout(()=>$("#mName").focus(),150);
+}
+
+/* ---------- Sheet ---------- */
+function openSheet(){$("#sheetWrap").classList.add("open");history.pushState({sheet:true},"");document.body.style.overflow="hidden";}
+function closeDetail(){$("#sheetWrap").classList.remove("open");document.body.style.overflow="";}
+$("#scrim").onclick=()=>{if(history.state&&history.state.sheet)history.back();else closeDetail();};
+window.addEventListener("popstate",()=>{if($("#sheetWrap").classList.contains("open"))closeDetail();else if($("#modalWrap").classList.contains("open"))closeModal();});
+(function(){
+  const sheet=$("#sheet"),scroll=$("#sheetScroll");let sy=0,cur=0,drag=false;
+  sheet.addEventListener("touchstart",e=>{if(scroll.scrollTop>4)return;sy=e.touches[0].clientY;drag=true;sheet.style.transition="none";},{passive:true});
+  sheet.addEventListener("touchmove",e=>{if(!drag)return;cur=e.touches[0].clientY-sy;if(cur<0){cur=0;return;}sheet.style.transform=`translateY(${cur}px)`;},{passive:true});
+  sheet.addEventListener("touchend",()=>{if(!drag)return;drag=false;sheet.style.transition="";if(cur>110){if(history.state&&history.state.sheet)history.back();else closeDetail();}else sheet.style.transform="";cur=0;});
 })();
 
-/* -------- Init + SW -------- */
-loadData();
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+/* ---------- Tabs ---------- */
+function setTab(name){$("#tabbar").querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.dataset.tab===name));}
+function switchTab(name){
+  tab=name;_plView=null;
+  $("#title").textContent="Lift";
+  $("#searchWrap").style.display=(name==="playlists")?"none":"block";
+  $("#chips").style.display=(name==="playlists")?"none":"flex";
+  setTab(name);
+  render();
+  window.scrollTo(0,0);
 }
-window.addEventListener("online", ()=>{ if(ALL.length===0) loadData(); else clearBanner(); });
-window.addEventListener("offline", ()=>banner("📴 Hors-ligne — tes donnees restent accessibles."));
+$("#tabbar").querySelectorAll("button").forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+
+/* ---------- Recherche ---------- */
+let qt;$("#q").addEventListener("input",e=>{clearTimeout(qt);query=e.target.value;qt=setTimeout(render,180);});
+
+/* ---------- Scroll infini ---------- */
+new IntersectionObserver(es=>{if(es[0].isIntersecting&&shown>0&&shown<VIEW.length)renderMore();},{rootMargin:"600px"}).observe($("#sentinel"));
+
+/* ---------- Init ---------- */
+loadData();
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+window.addEventListener("online",()=>{if(ALL.length===0)loadData();else clearBanner();});
+window.addEventListener("offline",()=>banner("📴 Hors-ligne — tes données restent accessibles."));
 </script>
 </body>
 </html>
