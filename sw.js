@@ -3,7 +3,7 @@
    - Cache a la volee le JSON des exercices + les GIFs/images deja consultes,
      pour qu'ils restent visibles sans connexion apres une premiere ouverture.
 */
-const APP_CACHE   = "lift-app-v1";
+const APP_CACHE   = "lift-app-v2";
 const DATA_CACHE  = "lift-data-v1";
 const MEDIA_CACHE = "lift-media-v1";
 
