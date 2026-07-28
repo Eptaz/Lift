@@ -1,0 +1,7 @@
+services:
+  lift:
+    build: .
+    container_name: lift
+    ports:
+      - "8080:80"
+    restart: unless-stopped
