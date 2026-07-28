@@ -19,8 +19,6 @@ jobs:
       - name: Start container
         run: docker compose up -d
 
-      - name: Wait for container
-        run: sleep 15
 
       - name: Test interface
         run: curl http://localhost
