@@ -20,7 +20,7 @@ jobs:
         run: docker compose up -d
 
       - name: Wait for container
-        run: sleep 5
+        run: sleep 15
 
       - name: Test interface
         run: curl http://localhost
