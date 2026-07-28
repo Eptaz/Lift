@@ -13,20 +13,20 @@ jobs:
       run:
         working-directory: frontend
 
-      steps:
-      - uses: action/checkout@v3
+    steps:
+    - uses: action/checkout@v3
 
-      - name: build-image
-      - run: docker build -t lift .
+    - name: build-image
+    - run: docker build -t lift .
 
-      - name: Run container
-      - run: docker compose up -d
+    - name: Run container
+    - run: docker compose up -d
 
-      - name: Test interface
-      - run: curl https://localhost:80/
+    - name: Test interface
+    - run: curl https://localhost:80/
 
-      - name: Closing
-      - run: docker compose down 
+    - name: Closing
+    - run: docker compose down 
   
 
 #SUITE
