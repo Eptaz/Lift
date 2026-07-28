@@ -1,0 +1,29 @@
+name: learning-ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  run-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t lift .
+
+      - name: Start container
+        run: docker compose up -d
+
+      - name: Wait for container
+        run: sleep 15
+
+      - name: Test interface
+        run: curl http://localhost
+
+      - name: Stop container
+        run: docker compose down
