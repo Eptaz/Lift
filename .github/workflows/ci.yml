@@ -1,0 +1,51 @@
+name: learning-ci
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  run-test:
+    runs-on: ubuntu-latest
+    default: 
+      run:
+        working-directory: frontend
+
+      steps:
+      - uses: action/checkout@v3
+
+      - name: build-image
+      - run: docker build -t lift .
+
+      - name: Run container
+      - run: docker compose up -d
+
+      - name: Test interface
+      - run: curl https://localhost:80/
+
+      - name: Closing
+      - run: docker compose down 
+  
+
+#SUITE
+
+  # build-image: 
+  #   runs-on: ubuntu--latest
+  #   needs: [run-test]
+  #   if: ${{github.event._name == 'push' && github.ref_name == 'main'}}
+
+  #   permission:
+  #     packages: write
+  #     content: read
+    
+  #   steps:
+  #     - uses: actions/gitcheckout@v3
+
+  #     - name: log in 
+  #     uses: docker/build-push-action@v2
+  #     with:
+
+
+    
