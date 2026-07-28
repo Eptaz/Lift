@@ -19,7 +19,6 @@ jobs:
       - name: Start container
         run: docker compose up -d
 
-
       - name: Test interface
         run: curl http://localhost
 
